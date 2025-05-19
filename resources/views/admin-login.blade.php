@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,8 +11,17 @@
 </head>
 
 <body>
+
+          @error('user')
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong> ERROR  </strong> {{ $message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+   
+@enderror
     <div class="container justify-content-center align-content-center row min-vw-100 min-vh-100">
         <h2 class="text-center text-success" > Login Page here....! </h2>
+        
         <form action="admin-login" class="" method="post">
             @csrf
         <div class="mb-3 offset-sm-3 col-12 col-sm-6">
@@ -22,7 +32,12 @@
                 name="name"
              
                 placeholder="Enter user name" />
+                 @error('name')
+    <div class="text-danger small">{{ $message }}</div>
+@enderror
         </div>
+   
+
         <div class="mb-3 offset-sm-3  col-12 col-sm-6">
             <label for="password" class="form-label">Password</label>
             <input
@@ -31,6 +46,9 @@
                 name="password"
             
             />
+                  @error('password')
+    <div class="text-danger small">{{ $message }}</div>
+@enderror
         </div>
            <div class="mb-3 offset-sm-3  col-12 col-sm-6">
             <button class="btn btn-info form-control" type="submit"> Login  </button>
