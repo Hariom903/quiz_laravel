@@ -12,25 +12,25 @@
 <body>
     <div class="container justify-content-center align-content-center row min-vw-100 min-vh-100">
         <h2 class="text-center text-success" > Login Page here....! </h2>
-        <form action="" class="" method="post">
+        <form action="admin-login" class="" method="post">
+            @csrf
         <div class="mb-3 offset-sm-3 col-12 col-sm-6">
-            <label for="" class="form-label">Email</label>
+            <label for="email" class="form-label">Email</label>
             <input
                 type="email"
                 class="form-control"
-                name=""
-                id=""
+                name="email"
+             
                 aria-describedby="emailHelpId"
                 placeholder="abc@mail.com" />
         </div>
         <div class="mb-3 offset-sm-3  col-12 col-sm-6">
-            <label for="" class="form-label">Password</label>
+            <label for="password" class="form-label">Password</label>
             <input
                 type="password"
                 class="form-control"
-                name=""
-                id=""
-                placeholder=""
+                name="password"
+            
             />
         </div>
            <div class="mb-3 offset-sm-3  col-12 col-sm-6">
