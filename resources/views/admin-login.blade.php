@@ -15,14 +15,13 @@
         <form action="admin-login" class="" method="post">
             @csrf
         <div class="mb-3 offset-sm-3 col-12 col-sm-6">
-            <label for="email" class="form-label">Email</label>
+            <label for="name" class="form-label">name</label>
             <input
-                type="email"
+                type="text"
                 class="form-control"
-                name="email"
+                name="name"
              
-                aria-describedby="emailHelpId"
-                placeholder="abc@mail.com" />
+                placeholder="Enter user name" />
         </div>
         <div class="mb-3 offset-sm-3  col-12 col-sm-6">
             <label for="password" class="form-label">Password</label>
