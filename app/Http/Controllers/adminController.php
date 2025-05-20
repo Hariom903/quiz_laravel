@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Category;
+use App\Models\Quiz;
+use App\Models\Qusetions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -47,7 +49,8 @@ class adminController extends Controller
 }
 
 function categray(){
-   $categories = Category::with('admin')->get();
+   $categories = Category::with('admin')->paginate(1);
+  
 
    //  return $categories;
    
@@ -87,15 +90,65 @@ function delete_category($id){
  }
 }
 function add_quiz(){
-    $user=   Session::get('user');
+    $user=Session::get('user');
    if($user){
-    return view("quiz",['name'=>$user->name]);
+    $quiz = request('quiz');
+    $cat = request('category');
+    if($quiz && $cat && !Session::has('quiz') ){
+      $quizadd = new Quiz();
+      $quizadd->name = $quiz;
+      $quizadd->categories_id=$cat;
+       $quizadd->admin_id =  $user->id;
+
+      if($quizadd->save()){
+        Session::put('quiz',$quizadd);
+      }
+    }
+      $categories = Category::all();
+    return view("quiz",['name'=>$user->name,"categories"=>$categories]);
    }
    else{
       return redirect('admin-login');
    }
 
 }
+function add_qus(Request $request){
+ $user=   Session::get('user');
+ if(!$user){
+     return redirect('admin-login');
+ }
+ else{
+ $quiz=Session::get('quiz');
+
+  if($quiz){
+    $addqus = new Qusetions();
+    $addqus->qus = $request->qus;   
+    $addqus->op1 = $request->A;   
+    $addqus->op2 = $request->B;   
+    $addqus->op3 = $request->C;   
+    $addqus->op4 = $request->D;   
+    $addqus->ans = $request->ans;   
+    $addqus->admin_id =  $user->id;
+    $addqus->quiz_id =  $quiz->id;
+    if($addqus->save()){
+ 
+       if($request->submit=='addandnext'){
+      return view("quiz",['name'=>$user->name]);
+
+       }
+       else
+       {
+           Session::forget('quiz');
+
+           $categories = Category::all();
+    return view("quiz",['name'=>$user->name,"categories"=>$categories]);
+       }
+    }
+  }
+
+}
+}
+
 }
 
 
