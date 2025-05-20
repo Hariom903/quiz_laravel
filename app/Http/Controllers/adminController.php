@@ -81,7 +81,10 @@ function add_category(Request $request){
 
 }
 function delete_category($id){
- 
+ $isdelete = Category::where("id", $id)->delete();
+ if($isdelete){
+  return redirect('categray')->with('success', 'Category Deleted successfully!');
+ }
 }
 }
 
