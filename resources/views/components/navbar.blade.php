@@ -20,6 +20,7 @@
   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
     <li><a class="dropdown-item" href="#">Create User</a></li>
     <li><a class="dropdown-item" href="#">View User List</a></li>
+    <li><a class="dropdown-item" href="/add-quiz">Quiz</a></li>
   </ul>
 </li>
  <li class="nav-item">

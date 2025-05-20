@@ -86,6 +86,16 @@ function delete_category($id){
   return redirect('categray')->with('success', 'Category Deleted successfully!');
  }
 }
+function add_quiz(){
+    $user=   Session::get('user');
+   if($user){
+    return view("quiz",['name'=>$user->name]);
+   }
+   else{
+      return redirect('admin-login');
+   }
+
+}
 }
 
 
