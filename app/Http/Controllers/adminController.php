@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -46,10 +47,15 @@ class adminController extends Controller
 }
 
 function categray(){
-       
+   $categories = Category::with('admin')->get();
+
+   //  return $categories;
+   
+
+      
    $user=   Session::get('user');
    if($user){
-    return view('categories',['name'=>$user->name]);
+    return view('categories',['name'=>$user->name,"categories"=>$categories]);
    }
    else{
       return redirect('admin-login');
@@ -58,6 +64,24 @@ function categray(){
 function logout(){
   session()->forget('user');
     return redirect('admin-login');
+}
+
+function add_category(Request $request){
+   $validetion = $request->validate([
+   'cat'=>'required |min:4 |unique:categories,name',
+   ]);
+    $user=   Session::get('user');
+    $category = new Category();
+    $category->name = $request->cat;
+    $category->admin_id = $user->id;
+   if( $category->save()){
+  return redirect('categray')->with('success', 'Category created successfully!');
+
+   }
+
+}
+function delete_category($id){
+ 
 }
 }
 

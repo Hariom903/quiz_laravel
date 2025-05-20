@@ -9,6 +9,80 @@
 
 </head>
 <body>
+  @if (session('success'))
+    <div class="alert alert-success  ">
+        {{ session('success') }}
+    </div>
+@endif
+
 <x-navbar :name="$name"></x-navbar>   
+
+<div class="container pt-5 ">
+  <h2 class="text-center text-success" > Add Category here....! </h2>
+ <div class="row justify-content-center ">
+  <div class="col-12 col-sm-6  " > 
+    <form action="/add_category" method="post">
+      @csrf
+      <div class="mb-3">
+        <label for="cat" class="form-label">Categories</label>
+        <input
+          type="text"
+          class="form-control"
+          name="cat"
+          id=""
+          aria-describedby="helpId"
+          placeholder="Enter Categories"
+        />
+      </div>
+    @error('cat')
+    <div class="text-danger">{{ $message }}</div>
+@enderror
+       <div class="mb-3">
+      <button class="btn btn-info form-control" type="submit"> Add Category  </button>
+       </div>
+    </form>
+  </div>
+ </div>
+</div>
+  <div class="container pt-4 ">
+   <table class="table table-success table-striped">
+   <thead> 
+    <tr>  
+      <th> S.no  </th>
+      <th>  Name  </th>
+      <th> Created_by </th>
+      <th>  Opretions </th>
+    </tr>
+   </thead>
+   <tbody> 
+     @php  $i =1; @endphp
+   @foreach($categories as $category)
+ 
+    <tr>
+      <td>
+       {{ $i++ }}
+      </td>
+      <td>
+       {{ $category->name }}
+      </td>
+      <td>
+       {{ $category->admin->name }}
+      </td>
+      <td> 
+        <a
+          name=""
+          id=""
+          class="btn  btn-danger"
+          href="delete_category/{{$category->id}}"
+          role="button"
+          >Delete</a
+        >
+        
+      </td>
+    </tr>
+  @endforeach
+   </tbody>
+</table>
+  </div>
 </body>
 </html>
