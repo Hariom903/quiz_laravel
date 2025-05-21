@@ -1,3 +1,39 @@
-<div>
-    <!-- Act only according to that maxim whereby you can, at the same time, will that it should become a universal law. - Immanuel Kant -->
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Quiz  </title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<x-navbar :name="$name"></x-navbar> 
+    <div class="container">
+     <table class="table">
+         <thead> 
+          <tr>
+              <th> 
+               Id
+              </th>
+          <th>
+              Qusetion 
+          </th>
+          </tr>
+         </thead>
+         <tbody>
+             <tr>
+                 <td>
+                     1
+                 </td>
+                 <td>
+                     quw 
+                 </td>
+             </tr>
+         </tbody>
+     </table>
+        
+    </div>
+</body>
+</html>
