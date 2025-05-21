@@ -7,6 +7,7 @@ use App\Models\Admin;
 use App\Models\Category;
 use App\Models\Quiz;
 use App\Models\Qusetions;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -26,7 +27,7 @@ class adminController extends Controller
             'user'=>"required",
          ],
       [
-         "user.required"=>"user not exist",
+         "user.required"=>" User name and password wrong  ",
       ]
    );
       }
@@ -48,16 +49,19 @@ class adminController extends Controller
    }
 }
 
-function categray(){
-   $categories = Category::with('admin')->paginate(1);
+function categray(Request $request){
   
 
    //  return $categories;
-   
-
-      
-   $user=   Session::get('user');
+  $user=   Session::get('user');
    if($user){
+       $categories = Category::with('admin');
+          if ($request->has('search') && $request->search != '') {
+            $searchTerm = $request->search;
+            $categories->where('name', 'like', '%' . $searchTerm . '%');
+            
+        }
+        $categories =  $categories->paginate(4);
     return view('categories',['name'=>$user->name,"categories"=>$categories]);
    }
    else{
@@ -66,14 +70,24 @@ function categray(){
 }
 function logout(){
   session()->forget('user');
+
+
+
+
+
     return redirect('admin-login');
 }
+
 
 function add_category(Request $request){
    $validetion = $request->validate([
    'cat'=>'required |min:4 |unique:categories,name',
+   
    ]);
     $user=   Session::get('user');
+    if(!$user){
+      return redirect('admin-login');
+    }else{
     $category = new Category();
     $category->name = $request->cat;
     $category->admin_id = $user->id;
@@ -81,6 +95,7 @@ function add_category(Request $request){
   return redirect('categray')->with('success', 'Category created successfully!');
 
    }
+}
 
 }
 function delete_category($id){
@@ -105,7 +120,10 @@ function add_quiz(){
       }
     }
       $categories = Category::all();
-    return view("quiz",['name'=>$user->name,"categories"=>$categories]);
+       $total = 0;
+        $quiz=Session::get('quiz');
+        $total = Qusetions::where("quiz_id", $quiz->id)->count();
+    return view("quiz",['name'=>$user->name,"categories"=>$categories,"total"=>$total]);
    }
    else{
       return redirect('admin-login');
@@ -131,9 +149,10 @@ function add_qus(Request $request){
     $addqus->admin_id =  $user->id;
     $addqus->quiz_id =  $quiz->id;
     if($addqus->save()){
- 
+       
        if($request->submit=='addandnext'){
-      return view("quiz",['name'=>$user->name]);
+   return redirect()->back();
+
 
        }
        else

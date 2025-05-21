@@ -45,7 +45,12 @@
  </div>
 </div>
   <div class="container pt-4 ">
-   <table class="table table-success table-striped">
+        <!-- Search form -->
+    <form method="GET" action="{{ url('categray') }}" class="mb-3">
+        <input type="text" name="search" value="{{request('search')}}" placeholder="Search categories..." class="form-control" />
+        <button type="submit" class="btn btn-primary mt-2">Search</button>
+    </form>
+   <table class="table table-success table-stripe d">
    <thead> 
     <tr>  
       <th> S.no  </th>
@@ -66,7 +71,7 @@
        {{ $category->name }}
       </td>
       <td>
-       {{ $category->admin->name }}
+       {{ $category->admin->  name }}
       </td>
       <td> 
         <a

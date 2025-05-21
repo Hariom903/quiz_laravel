@@ -23,6 +23,7 @@
                         class="form-control"
                         name="quiz"
                         id=""
+                        required
                      
                         placeholder="Enter Quiz"
                     />
@@ -60,11 +61,14 @@
         @php 
          $quiz  = session()->get('quiz');
          @endphp
-
+ 
  <h2 class="text-center text-success"> Add question 
- {{ $quiz->name }}   </h2>
+ </h2>
+
     <div class="row justify-content-center">
+         <p class="text-info text-center  " > Quiz Name : {{ $quiz->name }}  </p>
         <div class="col-12 col-sm-6">
+            <p class="text-success"> Total add Qustion {{$total}} <samp> <a href="show-qus"> show qus </a> </samp> </p>
             <form action="add-qus" method="post">
                        @csrf
                 <div class="mb-3">
@@ -74,6 +78,7 @@
                         class="form-control"
                         name="qus"
                         id=""
+                        required
                      
                         placeholder="Enter Quiz"
                     > </textarea>
@@ -86,7 +91,7 @@
                         class="form-control"
                         name="A"
                         id=""
-                       
+                        required
                         placeholder="Options A "
                     />
                 </div>
@@ -97,7 +102,7 @@
                         class="form-control"
                         name="B"
                         id=""
-                      
+                      required
                         placeholder="Options B"
                     />
                 </div>
@@ -108,7 +113,7 @@
                         class="form-control"
                         name="C"
                         id=""
-                       
+                       required 
                         placeholder="Options C "
                     />
                 </div>
@@ -119,13 +124,14 @@
                         class="form-control"
                         name="D"
                         id=""
-                      
+                      required 
                         placeholder="Options D "
                     />
                 </div>
                          <div class="mb-3">
-                    <label for="" class="form-label"> Answer </label>
+                    <label for="" required  class="form-label"> Answer </label>
                      <select name="ans" id="" class="form-control" >
+                    <option value=""> Correct answer</option>
                     <option value="A"> A </option>
                     <option value="B"> B </option>
                     <option value="C"> C </option>
